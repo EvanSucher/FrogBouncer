@@ -81,14 +81,20 @@ public class FrogController : MonoBehaviour {
         }
         else
         {
-            if (launchTime > 105) // THis conditional should be replaced with whenever it hits the floor
+            if (launchTime >= 110) // THis conditional should be replaced with whenever it hits the floor
             {
                 isLaunching = false;
                 launchTime = 0;
                 frogCollider.sharedMaterial = stopMaterial;
+                GetComponent<Rigidbody2D>().gravityScale = 1;
             }
             else
             {
+                if(GetComponent<Rigidbody2D>().gravityScale < 1)
+                {
+                    GetComponent<Rigidbody2D>().gravityScale = GetComponent<Rigidbody2D>().gravityScale + 0.01f;
+                }
+
                 launchTime++;
             }
             if (launchTime<90)
@@ -130,6 +136,8 @@ public class FrogController : MonoBehaviour {
                     isCharging = false;
                     isLaunching = true;
                     frogCollider.sharedMaterial = launchMaterial;
+
+                    GetComponent<Rigidbody2D>().gravityScale = 0.1f;
                 }
             }
         }
