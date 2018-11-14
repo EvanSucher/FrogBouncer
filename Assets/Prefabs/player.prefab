@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114754517588325270}
   m_Layer: 0
   m_Name: player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1357083232521570}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.08000004, y: 2.22, z: -0.114359975}
+  m_LocalPosition: {x: 0.029999971, y: 2.22, z: -0.114359975}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +78,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.01, y: -0.04}
   serializedVersion: 2
-  m_Radius: 0.13
+  m_Radius: 0.12
 --- !u!95 &95122194495043018
 Animator:
   serializedVersion: 3
@@ -112,10 +112,11 @@ MonoBehaviour:
   launchRotation: 0
   facingRight: 0
   fCrosshair: {fileID: 0}
+  mCrosshair: {fileID: 0}
   launchMaterial: {fileID: 6200000, guid: e31b734d361ff5843bfd7bcf1fbe901e, type: 2}
   stopMaterial: {fileID: 6200000, guid: 5ab15b8106498144db4899720a97e565, type: 2}
-  anim: {fileID: 0}
-  frogCollider: {fileID: 0}
+  anim: {fileID: 95122194495043018}
+  frogCollider: {fileID: 58537914229377532}
 --- !u!212 &212921701631667990
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -150,7 +151,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5d1ec6f404f7c78478567cc4fef28d34, type: 3}
+  m_Sprite: {fileID: 21300008, guid: 5d1ec6f404f7c78478567cc4fef28d34, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
