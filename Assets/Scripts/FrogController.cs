@@ -34,15 +34,16 @@ public class FrogController : MonoBehaviour {
     [SerializeField]
     CircleCollider2D frogCollider;
 
-
+    // private variables
     private float closeCursorDistance = 0.3f;
     private bool isCharging = false;
     private bool isLaunching = false;
     private int launchTime = 0;
     private int chargeTime = 0;
     private int timeBeforeLaunchDecceleration = 200;
+    private float deccelerationDelay = 1;
     private float deccel = 0.99f;
-    private float stopSpeed = 5;
+    private float stopSpeed = 9;
     private float RotationSpeed = 4;
     private float gravIncreaseRate = 0.01f;
 
@@ -91,7 +92,7 @@ public class FrogController : MonoBehaviour {
         }
         else
         {
-            if (launchTime >= timeBeforeLaunchDecceleration) // After the player has been launching for a given time
+            if (launchTime >= timeBeforeLaunchDecceleration * deccelerationDelay) // After the player has been launching for a given time
             {
                 GetComponent<Rigidbody2D>().gravityScale = 1; //sets gravity to 1 (should already be 1 by this point but just in case)
 
@@ -133,7 +134,7 @@ public class FrogController : MonoBehaviour {
                 if (!Input.GetKey("space") && !Input.GetMouseButton(0))  // Letting go of space/mouse1 while charging makes you stop charging
                 {
                     float charge = (10 + chargeTime) / 60f; // charge is the value that 
-
+                    deccelerationDelay = (charge-0.2f)*1.5f; // Magic numbers to adjust game feel
                     // ================ EXPERIMENTAL CODE: DANGER DANGER (not really) ======================
                     // This basically just changes the velocity to the normal vector of the crosshair * the launchspeed * charge
                     GetComponent<Rigidbody2D>().velocity = new Vector2(fCrosshair.GetNormalizedAimVector().x * (launchSpeed*charge), fCrosshair.GetNormalizedAimVector().y * (launchSpeed * charge));
@@ -171,7 +172,7 @@ public class FrogController : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other) // function called when there's a collision with the wall
     {   
-        float currentVelocity = Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x) + Mathf.Abs(GetComponent<Rigidbody2D>().velocity.y) * 0.6f;
+        float currentVelocity = Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x) + Mathf.Abs(GetComponent<Rigidbody2D>().velocity.y) * 0.7f;
         RotationSpeed = currentVelocity - 3; // Thsese lines take the velocity of the player, and set the player rotation speed to match velocity
 
         if (isLaunching) // None of the code in here will run unless the player is launching
