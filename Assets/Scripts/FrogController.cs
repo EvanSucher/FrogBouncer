@@ -171,7 +171,8 @@ public class FrogController : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D other) // function called when there's a collision with the wall
-    {   
+    {
+
         float currentVelocity = Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x) + Mathf.Abs(GetComponent<Rigidbody2D>().velocity.y) * 0.7f;
         RotationSpeed = currentVelocity - 3; // Thsese lines take the velocity of the player, and set the player rotation speed to match velocity
 
