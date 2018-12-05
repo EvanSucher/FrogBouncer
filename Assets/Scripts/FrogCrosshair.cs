@@ -16,13 +16,14 @@ public class FrogCrosshair : MonoBehaviour {
     Vector3 AimVector;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         frogCrosshairDist = frogCrosshairDist * 0.1f;
 	}
 	
 	// Update is called once per frame
 	void Update ()
-    {
+    {   // This code keeps the crosshair close to the frog, but in the same direction as the mouse
         AimVector = mouseCrosshair.transform.position - frog.transform.position;
         AimVector = AimVector.normalized*frogCrosshairDist;
         this.transform.position = frog.transform.position + AimVector;
@@ -30,6 +31,7 @@ public class FrogCrosshair : MonoBehaviour {
 
     public bool isPointingRight()
     {
+        // Check's the mouse position relative to the player to check if mouse is facing right
         float comparison = this.transform.position.x - frog.transform.position.x;
         if (comparison > 0)
         {

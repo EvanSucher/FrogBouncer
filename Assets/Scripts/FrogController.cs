@@ -46,6 +46,7 @@ public class FrogController : MonoBehaviour {
     private float stopSpeed = 9;
     private float RotationSpeed = 4;
     private float gravIncreaseRate = 0.01f;
+    private Vector3 spawnPoint;
 
     // Use this for initialization
     void Start ()
@@ -53,6 +54,7 @@ public class FrogController : MonoBehaviour {
         anim = GetComponent<Animator>();
         frogCollider = GetComponent<CircleCollider2D>();
         frogCollider.sharedMaterial = stopMaterial;
+        spawnPoint = transform.position;
 	}
 	
 	// Update is called once per frame
@@ -247,6 +249,7 @@ public class FrogController : MonoBehaviour {
         frogCollider.sharedMaterial = stopMaterial; // changes material so the player does not bounce
         GetComponent<Rigidbody2D>().gravityScale = 1; // sets gravity to normal
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0); // sets velocity to normal
+        transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     void RotateInAir()
@@ -258,5 +261,17 @@ public class FrogController : MonoBehaviour {
         }
         Vector3 tempRotationVector = new Vector3(0, 0, tempRotationZ); // vector3 to prime rotation
         transform.Rotate(tempRotationVector); // Rotates the player
+    }
+
+    public void SetRespawnCheckpoint(Vector2 checkpoint)
+    {
+        spawnPoint = checkpoint;
+    }
+
+    public void DeathReset()
+    {
+        isCharging = false;
+        StopLaunch();
+        transform.position = spawnPoint;
     }
 }

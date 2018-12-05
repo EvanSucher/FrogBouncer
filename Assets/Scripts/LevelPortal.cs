@@ -29,8 +29,8 @@ public class LevelPortal : MonoBehaviour {
         //Debug.Log("TOUCHDOWN");
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("TOUCHDOWN");
-            SceneManager.LoadScene(levelName);
+                Debug.Log("TOUCHDOWN");
+                SceneManager.LoadScene(levelName);
         }
     }
 
