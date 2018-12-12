@@ -34,6 +34,18 @@ public class FrogController : MonoBehaviour {
     [SerializeField]
     CircleCollider2D frogCollider;
 
+    [SerializeField]
+    AudioClip frogCharge;
+
+    [SerializeField]
+    AudioClip frogBounce;
+
+    [SerializeField]
+    AudioClip frogLaunch;
+
+    [SerializeField]
+    AudioClip gemCollect;
+
     // private variables
     private float closeCursorDistance = 0.3f;
     private bool isCharging = false;
@@ -47,6 +59,7 @@ public class FrogController : MonoBehaviour {
     private float RotationSpeed = 4;
     private float gravIncreaseRate = 0.01f;
     private Vector3 spawnPoint;
+    private AudioSource aSource;
 
     // Use this for initialization
     void Start ()
@@ -55,7 +68,8 @@ public class FrogController : MonoBehaviour {
         frogCollider = GetComponent<CircleCollider2D>();
         frogCollider.sharedMaterial = stopMaterial;
         spawnPoint = transform.position;
-	}
+        aSource = GetComponent<AudioSource>();
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate ()
@@ -129,6 +143,9 @@ public class FrogController : MonoBehaviour {
                 if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0)) // Pressing Space/mouse1 while not charging makes you charge
                 {
                     isCharging = true;
+                    aSource.pitch = 1;
+                    aSource.clip = frogCharge;
+                    aSource.Play();
                 }
             }
             else // charging
@@ -151,6 +168,10 @@ public class FrogController : MonoBehaviour {
 
                     GetComponent<Rigidbody2D>().gravityScale = 0.5f + (charge/120);
                     chargeTime = 0;
+
+                    aSource.pitch = 0.5f + charge*0.8f;
+                    aSource.clip = frogLaunch;
+                    aSource.Play();
                 }
                 if (Input.GetMouseButton(1))  // Pressing the right mouse button will stop the charging and make the player go back to idle
                 {
@@ -219,6 +240,15 @@ public class FrogController : MonoBehaviour {
                     GetComponent<Rigidbody2D>().gravityScale = 0;
                     isCharging = true;
                 }
+                aSource.pitch = 1;
+                aSource.clip = frogCharge;
+                aSource.Play();
+            }
+            else
+            {
+                aSource.pitch = Random.Range(0.8f, 1.6f);
+                aSource.clip = frogBounce;
+                aSource.Play();
             }
             if (other.contacts[0].normal == Vector2.up && currentVelocity < stopSpeed) //if the player is slow enough and hits the ground
             {
@@ -231,7 +261,6 @@ public class FrogController : MonoBehaviour {
                 Flip();
             }
         }
-
     }
 
     void Flip() //just flips the player
@@ -273,5 +302,12 @@ public class FrogController : MonoBehaviour {
         isCharging = false;
         StopLaunch();
         transform.position = spawnPoint;
+    }
+
+    public void CollectSecretGem()
+    {
+        aSource.pitch = 1;
+        aSource.clip = gemCollect;
+        aSource.Play();
     }
 }
