@@ -44,6 +44,9 @@ public class FrogController : MonoBehaviour {
     AudioClip frogLaunch;
 
     [SerializeField]
+    AudioClip frogDeath;
+
+    [SerializeField]
     AudioClip gemCollect;
 
     // private variables
@@ -302,6 +305,10 @@ public class FrogController : MonoBehaviour {
         isCharging = false;
         StopLaunch();
         transform.position = spawnPoint;
+
+        aSource.pitch = 1;
+        aSource.clip = frogDeath;
+        aSource.Play();
     }
 
     public void CollectSecretGem()
